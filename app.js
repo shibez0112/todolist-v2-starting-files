@@ -100,18 +100,23 @@ app.post("/", function(req, res){
 app.get("/:customListName", function(req,res){
   const customListName = req.params.customListName
 
-  const list = new List({
-    name: customListName,
-    items: defaultItems
-  });
-
-  list.find({}, function(err, results){
+  List.findOne({'name': customListName}, function(err, results){
     if (err){
       console.log(err)
     }
+    else if (results)
+    {
+      console.log("Found existing list")
+      res.render("list", {listTitle: results.name, newListItems: results.items});
+    }
     else{
+      const list = new List({
+        name: customListName,
+        items: defaultItems
+      });
       console.log("Sucessfully save list")
       list.save()
+      res.redirect("/"+ customListName)
     }
   });
 
