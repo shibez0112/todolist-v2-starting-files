@@ -10,7 +10,8 @@
         <div class="item">
         <input type="checkbox" name = checkbox value="<%= listItem._id %>" onChange="this.form.submit()">
         <p><%=  listItem.name  %></p>
-        </div>      
+        </div>  
+        <input type="hidden" name="listName" value="<%= listTitle %>"></input>
       </form>
       <% }) %>
 
